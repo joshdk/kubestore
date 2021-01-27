@@ -4,19 +4,21 @@
 
 package kubestore
 
+import "context"
+
 // Store represents a type that is capable of managing key/value pairs using
 // some backing medium.
 type Store interface {
 	// Get retrieves the given key contents, and stores it into the given value
 	// pointer. Returns ErrorKeyNotFound if the given key was not found.
-	Get(key string, value interface{}) error
+	Get(ctx context.Context, key string, value interface{}) error
 
 	// Set stores the given value under the given key.
-	Set(key string, value interface{}) error
+	Set(ctx context.Context, key string, value interface{}) error
 
 	// List returns a list of all keys.
-	List() ([]string, error)
+	List(ctx context.Context) ([]string, error)
 
 	// Delete removed the given key.
-	Delete(key string) error
+	Delete(ctx context.Context, key string) error
 }
